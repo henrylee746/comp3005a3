@@ -17,6 +17,8 @@ const addStudent = async (first_name, last_name, email, enrollment_date) => {
       VALUES ($1, $2, $3, $4) RETURNING *`,
       //RETURNING * will return the row updated in res.rows (which is an array)
       [first_name, last_name, email, new Date(enrollment_date)] //transforms string like '2023-09-01' into date obj
+      /*The dependency array's arguments will go into the 
+        parameters of the query (e.g. first_name goes into $1)*/
     );
     console.log("Student inserted:", res.rows[0]);
   } catch (e) {
@@ -54,6 +56,5 @@ const deleteStudent = async (student_id) => {
 
 //addStudent("Henry", "Lee", "something@email.ca", new Date());
 //updateStudentEmail(2, "updated@email.com");
-deleteStudent(1);
+//deleteStudent(1);
 getAllStudents();
-//getAllStudents();

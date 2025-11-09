@@ -1,6 +1,7 @@
 import { Client } from "pg";
 import "dotenv/config";
 
+//Replace with your pgAdmin details if needed
 const client = new Client({
   user: "postgres",
   host: "localhost",

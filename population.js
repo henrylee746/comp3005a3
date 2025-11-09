@@ -3,7 +3,7 @@ import client from "./client.js";
 //Create table
 const studentTableQuery = `
   CREATE TABLE IF NOT EXISTS students (
-    student_id SERIAL PRIMARY KEY,
+    student_id SERIAL PRIMARY KEY, 
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
@@ -11,6 +11,8 @@ const studentTableQuery = `
   );
 `;
 
+//If promise successfully resolves, print a success message,
+//otherwise print an err msg
 client
   .query(studentTableQuery)
   .then(() => console.log("Students table created successfully"))
