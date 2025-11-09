@@ -1,23 +1,9 @@
-import { Client } from "pg";
-import "dotenv/config";
+import client from "./client.js";
 
-const client = new Client({
-  user: "postgres",
-  host: "localhost",
-  database: "University",
-  password: PROCESS.ENV.PASSWORD,
-  port: 5432,
-});
-
-client
-  .connect()
-  .then(() => console.log("Connected to PostgreSQL"))
-  .catch((e) => console.error("Connection error", e.message));
-
+//CRUD functions
 const getAllStudents = async () => {
   try {
     const res = await client.query("SELECT * FROM STUDENTS");
-
     console.log("All students:", res.rows);
   } catch (e) {
     console.error("Error fetching students", e.message);
@@ -29,11 +15,12 @@ const addStudent = async (first_name, last_name, email, enrollment_date) => {
     const res = await client.query(
       `INSERT INTO students (first_name, last_name, email, enrollment_date)
       VALUES ($1, $2, $3, $4) RETURNING *`,
-      //RETURNING * will return the row updated in res.rows
-      [first_name, last_name, email, enrollment_date]
+      //RETURNING * will return the row updated in res.rows (which is an array)
+      [first_name, last_name, email, new Date(enrollment_date)] //transforms string like '2023-09-01' into date obj
     );
     console.log("Student inserted:", res.rows[0]);
   } catch (e) {
+    //e is the error object
     console.error("Error inserting student", e.message);
   }
 };
@@ -63,7 +50,10 @@ const deleteStudent = async (student_id) => {
   }
 };
 
+//Can comment/uncomment to test the functions as needed
+
 //addStudent("Henry", "Lee", "something@email.ca", new Date());
-//updateStudentEmail(7, "updated@email.com");
+//updateStudentEmail(2, "updated@email.com");
 deleteStudent(1);
 getAllStudents();
+//getAllStudents();
