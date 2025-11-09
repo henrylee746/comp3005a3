@@ -1,3 +1,5 @@
+YouTube Link: https://www.youtube.com/watch?v=HBMrXmgwfRM
+
 To run the application:
 
 1. Replace the user, host, database, password, and/or port details
